@@ -1,8 +1,8 @@
 <template>
   <form @submit.prevent>
     <div class="input-group">
-      <input type="text" v-model="queryText" class="form-control">
-      <button @click="callSearch" class="btn btn-success">Найти</button>
+      <input class="form-control" type="text" v-model="queryText" placeholder="Поиск по документам">
+      <button class="btn btn-success" @click="callSearch">Найти</button>
     </div>
   </form>
 </template>

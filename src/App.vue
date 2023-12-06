@@ -1,19 +1,20 @@
 <template>
     <div class="container">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <div class="container-fluid">
-        <a class="navbar-brand">Поиск по документам</a>
-        <SearchForm @search="runSearch" class="d-flex" type="Search"></SearchForm>
+      <div class="d-flex flex-column min-vh-100" :class="{ 'justify-content-center':isStartUp }">
+        <div class="container-fluid search-bg" :class="{ 'mt-5': !isStartUp}">
+          <SearchForm @search="runSearch"></SearchForm>
+        </div>
+        <div class="container">
+          <div class="mt-2">
+            <h5 v-if="this.searchQueryStr">Поиск: '{{ searchQueryStr }}'</h5>
+            <h6 v-if="searchCompleted">Найдено результатов: {{ searchResults.length }}</h6>
+          </div>
+          <div class="mt-2">
+            <SearchResultList :items="this.searchResults"></SearchResultList>
+          </div>
+        </div>
       </div>
-    </nav>
-      <div class="mt-2">
-        <h5 v-if="this.searchQueryStr">Поиск: '{{ searchQueryStr }}'</h5>
-        <h6 v-if="searchCompleted">Найдено результатов: {{ searchResults.length }}</h6>
-      </div>
-      <div class="mt-2">
-        <SearchResultList :items="this.searchResults"></SearchResultList>
-      </div>
-    </div>
+    </div>    
 </template>
 
 <script>
@@ -31,6 +32,11 @@ export default {
       searchQueryStr: '',
       searchResults: [],
       searchCompleted: false
+    }
+  },
+  computed: {
+    isStartUp: function() {
+      return !this.searchQueryStr;
     }
   },
   methods: {
@@ -66,8 +72,9 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
 }
-.app-content {
-  width: 50%;
-  margin: auto;
+.search-bg {
+  border-radius: 6px;
+  padding: 5pt;
+  background-color: #2c3e50;
 }
 </style>
